@@ -1,39 +1,61 @@
-import static java.lang.Math.abs;
+import static java.lang.Math.sqrt;
 
 public class MyVector {
-    private int x;
-    private int y;
+    private int[] coordinates;
 
-    public MyVector(int x, int y) {
-        this.x = x;
-        this.y = y;
+    public MyVector(int ... coordinates) {
+        this.coordinates = coordinates;
     }
 
-    static MyVector AddVectors(MyVector a, MyVector b) {
-        return new MyVector(a.x + b.x, a.y + b.y);
+    public MyVector AddVector(MyVector vector) {
+        for(int i = 0; i < this.coordinates.length; i++) {
+            this.coordinates[i] = this.coordinates[i] + vector.coordinates[i];
+        }
+        return this;
     }
 
-    static MyVector SubtractVectors(MyVector a, MyVector b) {
-        return new MyVector(a.x - b.x, a.y - b.y);
+    public MyVector SubtractVector(MyVector vector) {
+        for(int i = 0; i < this.coordinates.length; i++) {
+            this.coordinates[i] = this.coordinates[i] - vector.coordinates[i];
+        }
+        return this;
     }
 
     static int ScalarMultiplication(MyVector a, MyVector b) {
-        return a.x * b.x + a.y * b.y;
+        int result = 0;
+        for(int i = 0; i < a.coordinates.length; i++) {
+            result += a.coordinates[i] * b.coordinates[i];
+        }
+        return result;
     }
 
     public MyVector MultiplyByNumber(int k) {
-        return new MyVector(this.x * k, this.y * k);
+        for(int i = 0; i < this.coordinates.length; i++) {
+            this.coordinates[i] = this.coordinates[i] * k;
+        }
+        return this;
     }
 
-    public MyVector SubstractByNumber(int k) {
-        return new MyVector(this.x / k, this.y / k);
+    public MyVector DivideByNumber(int k) {
+        for(int i = 0; i < this.coordinates.length; i++) {
+            this.coordinates[i] = this.coordinates[i] / k;
+        }
+        return this;
     }
 
-    public int GetVectorLength() {
-        return abs(this.x - this.y);
+    public double GetVectorLength() {
+        int result = 0;
+        for(int i = 0; i < this.coordinates.length; i++) {
+            result += (this.coordinates[i])^2;
+        }
+        return sqrt(result);
     }
 
     public void PrintVector() {
-        System.out.printf("X: %d Y: %d%n", this.x, this.y);
+        System.out.print("Координаты вектора: ");
+        for(int i = 0; i < this.coordinates.length; i++) {
+            System.out.printf("%d ", this.coordinates[i]);
+        }
+        System.out.println();
     }
 }
